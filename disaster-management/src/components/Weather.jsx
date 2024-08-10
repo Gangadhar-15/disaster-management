@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Box, Text, VStack } from '@chakra-ui/react';
 
 const Weather = ({ coordinates }) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -25,7 +26,6 @@ const Weather = ({ coordinates }) => {
           console.log(response);
           setWeatherData(response.data);
         } catch (err) {
-          // Log the error to the console for debugging
           console.error('Error fetching weather data:', err.response ? err.response.data : err.message);
           setError('Failed to fetch weather data');
         } finally {
@@ -40,24 +40,33 @@ const Weather = ({ coordinates }) => {
   if (loading) return <p>Loading weather...</p>;
   if (error) return <p>{error}</p>;
 
-  // For the forecast endpoint, you may want to show the data differently.
-  // Here is a basic example of displaying the first entry from the forecast data.
   const forecast = weatherData?.list[0];
 
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '10px', borderRadius: '8px' }}>
-      <h3>Weather Forecast</h3>
+    <Box
+      position="fixed"
+      top="200px"
+      right="10px"
+      bg="rgba(255, 218, 237, 0.8)" // Transparent blue background
+      p={4}
+      borderRadius="md"
+      boxShadow="md"
+      width="300px" // You can adjust the width as needed
+      maxWidth="90vw"
+      zIndex="1000" // Ensure this is high enough to appear in front
+    >
+      <Text fontSize="lg" fontWeight="bold" mb={2}>Weather Forecast</Text>
       {forecast ? (
-        <div>
-          <p>Temperature: {forecast.main.temp}°C</p>
-          <p>Condition: {forecast.weather[0].description}</p>
-          <p>Humidity: {forecast.main.humidity}%</p>
-          <p>Wind Speed: {forecast.wind.speed} m/s</p>
-        </div>
+        <VStack spacing={2} align="start">
+          <Text>Temperature: {forecast.main.temp}°C</Text>
+          <Text>Condition: {forecast.weather[0].description}</Text>
+          <Text>Humidity: {forecast.main.humidity}%</Text>
+          <Text>Wind Speed: {forecast.wind.speed} m/s</Text>
+        </VStack>
       ) : (
-        <p>No forecast data available</p>
+        <Text>No forecast data available</Text>
       )}
-    </div>
+    </Box>
   );
 };
 

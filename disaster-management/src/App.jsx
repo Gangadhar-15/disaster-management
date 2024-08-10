@@ -7,7 +7,8 @@ import About from './pages/About';
 import Resources from './pages/Resources';
 import EmergencyContacts from './pages/EmergencyContacts';
 import Login from './components/Login';
-import Signup from './components/signup';
+import SignUp from './components/signup';
+import AddDisasterForm from './components/AddDisasterForm'; // Import the AddDisasterForm component
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/emergency-contacts" element={<EmergencyContacts />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <AddDisasterForm /> {/* Add the AddDisasterForm component */}
       <Footer />
     </Router>
   );
